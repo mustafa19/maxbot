@@ -1,0 +1,1745 @@
+<?php
+
+ob_start();
+
+$API_KEY = 'توكن البوت';
+define('API_KEY',$API_KEY);
+function bot($method,$datas=[]){
+    $url = "https://api.telegram.org/bot".API_KEY."/".$method;
+    $ch = curl_init();
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+    curl_setopt($ch,CURLOPT_POSTFIELDS,$datas);
+    $res = curl_exec($ch);
+    if(curl_error($ch)){
+        var_dump(curl_error($ch));
+    }else{
+        return json_decode($res);
+    }
+}
+
+$update = json_decode(file_get_contents('php://input'));
+$message = $update->message;
+$chat_id = $message->chat->id;
+$data = $update->callback_query->data;
+$chat_id2 = $update->callback_query->message->chat->id;
+$mid2 = $update->callback_query->message->message_id;
+$text = $message->text;
+$user = $message->from->username;
+$user_id = $message->reply_to_message->from->username;
+$id = $message->from->id;
+$s_id = 150830078;
+$id_bot = ايدي البوت;
+$bots = $message->new_chat_member->username;
+$name = $message->from->first_name;
+$name2 = $message->from->last_name;
+$name_id = $message->reply_to_message->from->first_name;
+$name_id1 = $message->reply_to_message->from->last_name;
+$mid = $message->message_id;
+$reply =$message->reply_to_message;
+$reply_id =$message->reply_to_message->from->id;
+$markdown = $update->entities->type == "text_link";
+$sudo = file_get_contents("https://api.telegram.org/bot".API_KEY."/getchatmember?chat_id=$chat_id&user_id=$id");
+$get_sticker = file_get_contents('sticker.txt');
+$sticker = explode("\n", $get_sticker);
+$get_photo = file_get_contents('photo.txt');
+$photo = explode("\n", $get_photo);
+$get_fwd = file_get_contents('fwd.txt');
+$fwd = explode("\n", $get_fwd);
+$get_link = file_get_contents('link.txt');
+$link = explode("\n", $get_link);
+$get_video = file_get_contents('video.txt');
+$video = explode("\n", $get_video);
+$get_voice = file_get_contents('voice.txt');
+$voice = explode("\n", $get_voice);
+$get_documents = file_get_contents('documents.txt');
+$docm = explode("\n", $get_documents);
+$get_contact = file_get_contents('contact.txt');
+$contact = explode("\n", $get_contact);
+$get_video_note = file_get_contents('video_note.txt');
+$vn = explode("\n", $get_video_note);
+$get_game = file_get_contents('game.txt');
+$game = explode("\n", $get_game);
+$get_tag = file_get_contents('tag.txt');
+$tag = explode("\n", $get_tag);
+$get_location = file_get_contents('location.txt');
+$lcn = explode("\n", $get_location);
+$get_venue = file_get_contents('venue.txt');
+$venue = explode("\n", $get_venue);
+$get_audio = file_get_contents('audio.txt');
+$audio = explode("\n", $get_audio);
+$get_chat = file_get_contents('chat.txt');
+$chat = explode("\n", $get_chat);
+$get_bott = file_get_contents('bott.txt');
+$bott = explode("\n", $get_bott);
+$get_mark = file_get_contents('mark.txt');
+$mark = explode("\n", $get_mark);
+$edited = $update->edited_message->text;
+$edit_chat_id = $update->edited_message->chat->id;
+$edit_id = $update->edited_message->message_id;
+$get_edit = file_get_contents('edit.txt');
+$edit = explode("\n", $get_edit);
+$nm = $message->new_chat_members;
+$get_id = file_get_contents('id.txt');
+$_id = explode("\n", $get_id);
+$get_chat_id = file_get_contents('chat_id');
+$_chat = explode("\n", $get_chat_id);
+
+
+// خزن ايديات + المشتركين  //
+if ($text == '/start' and $message->chat->type == 'supergroup' and !in_array($chat_id, $_chat)) {
+    file_put_contents('chat_id.txt', $chat_id . "\n",FILE_APPEND);
+}
+if ($text == '/start' and $message->chat->type == 'private' and !in_array($id, $_id)) {
+    file_put_contents('id.txt', $id . "\n",FILE_APPEND);
+}
+
+$rash = array($_id);
+$number = count($rash[0]);
+$_rash = array($_chat);
+$_number = count($_rash[0]);
+
+if ($text == 'المشتركين' and $id == $s_id) {
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=> "- عدد المجموعات : $_number \n - عدد المشتركين : $number",
+'reply_to_message_id'=>$mid
+    ]);
+}
+
+// البدء  //
+if ($text == '/start' ) {
+    bot('sendMessage',[
+'chat_id'=>$chat_id,
+'reply_to_message_id'=>$mid,
+'text'=>'مرحـبـا بــك 😺👋🏼 
+
+في بـوت الحمـايـة 🛡👾
+
+قم برفع الـبوت ادمـن👤☘️
+
+ وسـوف يقوم بـحمايـة مجموعتـك☑️
+
+
+                            by ~ @m_m17'
+
+    ]);
+}
+
+
+// BOT + replay //
+
+$r_bot = array("اسمي ماكس 🌚🌸", "كول بسرعة مفارغلك😹🌞", "هااا يمعود 😒🌾"  ,  "اي بوت ممصدك ؟؟ 🌝");
+$_rbot = array_rand($r_bot, 1);
+
+if ($text == 'بوت' ) {
+        
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>$r_bot[$_rbot],
+'reply_to_message_id'=>$mid
+
+]);
+}
+$get_kalam = file_get_contents('kalam.txt');
+$kalam = explode("\n", $get_kalam);
+$linkk = file_get_contents('https://omarrealxp.000webhostapp.com/pp.php');
+if ($text and $message->chat->type == 'supergroup' and !in_array($chat_id, $kalam)) {
+
+    action($chat_id, typing);
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>$linkk,
+'reply_to_message_id'=>$mid
+
+    ]);
+}
+
+// امر التفعيل + الايدي  //
+
+if ($text == 'تفعيل' and $id == $s_id)  {
+    
+
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>"تـم✔️ تفـعيـل البوت داخـل المجموعـة👥 
+ايدي المجموعـة : $chat_id",
+'reply_to_message_id'=>$mid
+
+
+    ]);
+}
+
+if($text == 'تعطيل' and $id == $s_id ){
+
+
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>"تـم ✔️ تعطـيل البوت داخل المجموعـة👥 
+ايدي المجموعـة : $chat_id",
+'reply_to_message_id'=>$mid
+
+]);
+}
+
+if($text == 'تفعيل' and strpos($sudo, '"status":"member"') == TRUE and $id != $s_id){
+
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'هذا الامـر للمطـور فقـط 👨🏻‍🔧❗️',
+'reply_to_message_id'=>$mid
+
+]);
+}
+if($text == 'تعطيل' and strpos($sudo, '"status":"member"') == TRUE and $id != $s_id){
+
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'هذا الامـر للمطـور فقـط 👨🏻‍🔧❗️',
+'reply_to_message_id'=>$mid
+
+]);
+}
+
+$bio = json_decode(file_get_contents("https://wathiq.us/api/getbio/$user"));
+$bioo = $bio->bio;
+if ($text == 'ايدي') {
+        
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>"  معلوماتك عزيزي ⤵️👤
+
+💳 ┇ الاسم : $name $name2
+🆔 ┇ ايديك : $id
+🖇 ┇معرفك : $user
+✉️ ┇عدد رسائلك : $mid
+🏷 ┇ البايـو : $bioo  ",
+'reply_to_message_id'=>$mid
+
+]);
+}
+
+
+
+// اوامر القفل //
+
+if ($text == '/help1' and strpos($sudo, '"status":"member"') == FALSE or $id == $s_id) {
+    
+    bot('sendMessage',[
+'chat_id'=>$chat_id,
+'reply_to_message_id'=>$mid,
+'text'=>'اهـلا بك عـزيزي في أوامر القفل 👨🏻‍🔧🔒',
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+
+[
+['text'=> 'قفل الصور 🏞🔒', 'callback_data'=>'ph'],
+['text'=> 'قفل الفيديو 📹🔒', 'callback_data'=>'vid'],
+],
+
+
+
+
+[
+['text'=> 'قفل الصوت🔊🔒', 'callback_data'=>'sou'],
+['text'=> 'قفل البصمة🎙🔒', 'callback_data'=>'voi'],
+],
+
+
+
+
+[
+['text'=> 'قفل التوجيه🔜🔒', 'callback_data'=>'fwd'],
+['text'=> 'قفل الملصقات🃏🔒', 'callback_data'=>'sti'],
+],
+
+
+
+
+[
+['text'=> 'قفل الروابط🖇🔒', 'callback_data'=>'link'],
+['text'=> 'قفل التعديل🖍🔒', 'callback_data'=>'edit'],
+],
+
+
+
+
+[
+['text'=> 'قفل المتحركة🖼🔒', 'callback_data'=>'gif'],
+['text'=> 'قفل الالعاب🕹🔒', 'callback_data'=>'game'],
+],
+
+
+
+
+[
+['text'=> 'قفل الماركداون🗂🔒', 'callback_data'=>'mark'],
+['text'=> 'قفل الموقع📍🔒', 'callback_data'=>'loc'],
+],
+
+
+
+
+[
+['text'=> 'قفل الموقع الحي 📍🔒', 'callback_data'=>'locl'],
+['text'=> 'قفل بصمة الفيديو🎙📹🔒', 'callback_data'=>'vnot'],
+],
+
+
+
+
+[
+['text'=> 'قفل الجهات☎️🔒', 'callback_data'=>'con'],
+['text'=> 'قفل الدردشة📤🔒', 'callback_data'=>'chat'],
+],
+
+
+
+
+[
+['text'=> 'قفل التاك💬🔒', 'callback_data'=>'tag'],
+['text'=> 'قفل البوتات👾🔒', 'callback_data'=>'bot'],
+],
+
+
+
+
+[
+['text'=> 'قفل الردود 🔒📝', 'callback_data'=>'back'],
+['text'=> 'تابع جديدنا 💡', 'url'=>'https://t.me/ERRORPHP'],
+]
+
+]
+])    
+]);
+}
+
+// اوامر الفتح //
+
+if ($text == '/help2' and strpos($sudo, '"status":"member"') == FALSE or $id == $s_id) {
+    
+    bot('sendMessage',[
+'chat_id'=>$chat_id,
+'reply_to_message_id'=>$mid,
+'text'=>'اهـلا بك عـزيزي في أوامر الفتح 👨🏻‍🔧🔓',
+'reply_markup'=>json_encode([
+'inline_keyboard'=>[
+
+[
+['text'=> 'فتح الصور 🏞🔓', 'callback_data'=>'ph1'],
+['text'=> 'فتح الفيديو 📹🔓', 'callback_data'=>'vid1'],
+],
+
+
+
+
+[
+['text'=> 'فتح الصوت🔊🔓', 'callback_data'=>'sou1'],
+['text'=> 'فتح البصمة🎙🔓', 'callback_data'=>'voi1'],
+],
+
+
+
+
+[
+['text'=> 'فتح التوجيه🔜🔓', 'callback_data'=>'fwd1'],
+['text'=> 'فتح الملصقات🃏🔓', 'callback_data'=>'sti1'],
+],
+
+
+
+
+[
+['text'=> 'فتح الروابط🖇🔓', 'callback_data'=>'link1'],
+['text'=> 'فتح التعديل🖍🔓', 'callback_data'=>'edit1'],
+],
+
+
+
+
+[
+['text'=> 'فتح المتحركة🖼🔓', 'callback_data'=>'gif1'],
+['text'=> 'فتح الالعاب🕹🔓', 'callback_data'=>'game1'],
+],
+
+
+
+
+[
+['text'=> 'فتح الماركداون🗂🔓', 'callback_data'=>'mark1'],
+['text'=> 'فتح الموقع📍🔓', 'callback_data'=>'loc1'],
+],
+
+
+
+
+[
+['text'=> 'فتح الموقع الحي 🔓', 'callback_data'=>'locl1'],
+['text'=> 'فتح بصمة الفيديو🎙📹🔓', 'callback_data'=>'vnot1'],
+],
+
+
+
+
+[
+['text'=> 'فتح الجهات☎️🔓', 'callback_data'=>'con1'],
+['text'=> 'فتح الدردشة📤🔓', 'callback_data'=>'chat1'],
+],
+
+
+
+
+[
+['text'=> 'فتح التاك💬🔓', 'callback_data'=>'tag1'],
+['text'=> 'فتح البوتات👾🔓', 'callback_data'=>'bot1'],
+],
+
+
+
+
+[
+['text'=> 'فتح الردود🔓📝', 'callback_data'=>'back1'],
+['text'=> 'تابع جديدنا 💡', 'url'=>'https://t.me/ERRORPHP'],
+]
+
+]
+])    
+]);
+}
+
+if($data == 'sti' and !in_array($chat_id, $sticker)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('sticker.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الملصقات 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'sti1'  and in_array($chat_id, $sticker)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("sticker.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("sticker.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الملصقات 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'ph' and !in_array($chat_id, $photo)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('photo.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الصور 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'ph1'  and in_array($chat_id, $photo)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("photo.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("photo.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الصور 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'sou' and !in_array($chat_id, $audio)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('audio.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الصوت 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'sou1'  and in_array($chat_id, $audio)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("audio.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("audio.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الصوت 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'voi' and !in_array($chat_id, $voice)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('voice.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل البصمة 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'voi1'  and in_array($chat_id, $voice)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("voice.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("voice.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح البصمة 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'gif' and !in_array($chat_id, $docm)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('documents.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل المتحركة 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'gif1'  and in_array($chat_id, $docm)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("documents.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("documents.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح المتحركة 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'vid' and !in_array($chat_id, $video)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('video.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الفيديو 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'vid1'  and in_array($chat_id, $video)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("video.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("video.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الفيديو 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'fwd' and !in_array($chat_id, $fwd)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('fwd.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل التوجيه 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'fwd1'  and in_array($chat_id, $fwd)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("fwd.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("fwd.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح التوجيه 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'fwd' and !in_array($chat_id, $fwd)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('fwd.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل التوجيه 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'fwd1'  and in_array($chat_id, $fwd)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("fwd.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("fwd.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح التوجيه 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'link' and !in_array($chat_id, $link)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('link.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الروابط 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'link1'  and in_array($chat_id, $link)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("link.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("link.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الروابط 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'edit' and !in_array($chat_id, $edit)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('edit.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل التعديل 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'edit1'  and in_array($chat_id, $edit)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("edit.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("edit.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح التعديل 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+
+]);
+}
+}
+
+
+
+
+if($data == 'game' and !in_array($chat_id, $game)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('game.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الالعاب 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'game1'  and in_array($chat_id, $fwd)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("game.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("game.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الالعاب 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'mark' and !in_array($chat_id, $mark)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('mark.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الماركداون 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'mark1'  and in_array($chat_id, $mark)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("mark.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("mark.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الماركداون 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+
+if($data == 'loc' and !in_array($chat_id, $lcn)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('location.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الموقع 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'loc1'  and in_array($chat_id, $lcn)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("location.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("location.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الموقع 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'locl' and !in_array($chat_id, $venue)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('venue.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الموقع الحي 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'locl1'  and in_array($chat_id, $venue)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("venue.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("venue.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الموقع الحي 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+
+if($data == 'vnot' and !in_array($chat_id, $vn)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('video_note.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل بصمة الفيديو 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'vnot1'  and in_array($chat_id, $vn)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("video_note.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("video_note.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح بصمة الفيديو 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'con' and !in_array($chat_id, $contact)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('contact.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الجهات 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'con1'  and in_array($chat_id, $contact)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("contact.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("contact.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الجهات 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'chat' and !in_array($chat_id, $chat)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('chat.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل الدردشة 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'chat1'  and in_array($chat_id, $chat)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("chat.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("chat.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح الدردشة 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'tag' and !in_array($chat_id, $tag)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('tag.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل التاك 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'tag1'  and in_array($chat_id, $tag)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("tag.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("tag.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح التاك 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+
+if($data == 'bot' and !in_array($chat_id, $bott)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+file_put_contents('bott.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ تم قفل البوتات 🔒✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($data == 'bot1'  and in_array($chat_id, $bott)){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+    
+$open = file_get_contents("bott.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("bott.txt", $str);
+
+bot('sendmessage', [
+
+'chat_id'=>$chat_id,
+'text'=>'➖ تم فتح البوتات 🔓✔️ عزيزي',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if ($data == 'back' and !in_array($chat_id, $kalam)) {
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+file_put_contents('kalam.txt', $chat_id . "\n" , FILE_APPEND);
+
+bot('sendMessage',[
+
+'chat_id'=>$chat_id,
+'reply_to_message_id'=>$mid,
+'text'=>'➖ تم قفل الردود 🔒✔️ عزيزي'
+]);
+}
+}
+
+if ($data == 'back1' and in_array($chat_id, $kalam)) {
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+$open = file_get_contents("kalam.txt");
+$str = str_replace($chat_id,'',$open);
+file_put_contents("kalam.txt", $str);
+
+bot('sendMessage',[
+
+'chat_id'=>$chat_id,
+'reply_to_message_id'=>$mid,
+'text'=>'➖ تم فتح الردود 🔒✔️ عزيزي'
+]);
+}
+}
+
+// الحمايــــــــة //
+
+if($message->sticker and in_array($chat_id, $sticker) ){
+if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if($message->photo  and in_array($chat_id, $photo) ){
+if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+    
+
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if($message->audio  and in_array($chat_id, $audio) ){
+if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+
+
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if($message->voice  and in_array($chat_id, $voice) ){
+    if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+        
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if($message->video and in_array($chat_id, $video) ){
+    if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+    
+
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if($message->document  and in_array($chat_id, $document) ){
+if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+
+
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if($message->contact and  in_array($chat_id, $contact) ){
+    if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+        
+    
+
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if($message->venue  and in_array($chat_id, $venue) ){
+    if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+        
+    
+
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if($message->video_note  and in_array($chat_id, $vn) ){
+if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+    
+
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if($message->location and in_array($chat_id, $lcn) ){
+    if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+        
+    
+
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if(preg_match('/^(.*)([Tt].[Mm][Ee])|(.*)([Tt].[Mm][Ee])(.*)|([Tt].[Mm][Ee])(.*)|(.*)([Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee])|(.*)([Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee])(.*)|([Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee])(.*)|(.*)([Ww][Ww][Ww])|(.*)([Ww][Ww][Ww])(.*)|(.*)([Cc][Oo][Mm])|(.*)([Cc][Oo][Mm])(.*)|([Cc][Oo][Mm])(.*)/', $edited) and  in_array($chat_id, $edit) ){ 
+    if ( strpos($sudo, '"status":"member"') == TRUE or  $id != $s_id) {
+
+    
+        
+bot('deleteMessage',[ 
+'chat_id'=>$edit_chat_id, 
+'message_id'=>$edit_id,
+]);
+}
+}
+
+
+if (preg_match('/^(.*)([Tt].[Mm][Ee])|(.*)([Tt].[Mm][Ee])(.*)|([Tt].[Mm][Ee])(.*)|(.*)([Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee])|(.*)([Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee])(.*)|([Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee])(.*)|(.*)([Ww][Ww][Ww])|(.*)([Ww][Ww][Ww])(.*)|(.*)([Cc][Oo][Mm])|(.*)([Cc][Oo][Mm])(.*)|([Cc][Oo][Mm])(.*)/', $text) and  in_array($chat_id, $link)) {
+    if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id) {
+    
+
+    bot('deletemessage',[
+
+'chat_id'=>$chat_id,
+'message_id'=>$mid
+]);
+
+}
+}
+
+
+
+if ($message->forward_from_chat->id  and in_array($chat_id, $fwd)) {
+    if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+        
+    bot('deletemessage',[
+
+'chat_id'=>$chat_id,
+'message_id'=>$mid
+]);
+}
+}
+
+    if ($message->forward_from->id  and in_array($chat_id, $fwd)) {
+        if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+        
+    bot('deletemessage',[
+
+'chat_id'=>$chat_id,
+'message_id'=>$mid
+]);
+}
+}
+
+if($markdown  and in_array($chat_id, $mark)){ 
+  if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+
+
+bot('deletemessage',[
+ 'chat_id'=>$chat_id, 
+'message_id'=>$mid
+]); 
+}
+}
+
+if($message->game and in_array($chat_id, $game) ){
+if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+
+
+bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if ($message == $text  and in_array($chat_id, $chat)) {
+    if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+        
+    bot('deletemessage',[
+
+'chat_id'=>$chat_id,
+'message_id'=>$mid
+]);
+}
+}
+
+if (preg_match('/@/', $text)  and in_array($chat_id, $tag)) {
+ if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id ) {
+
+    bot('deletemessage',[
+
+'chat_id'=>$chat_id,
+'message_id'=>$mid
+]);
+
+}
+}
+
+
+if(preg_match('/(.)([Bb][Oo][Tt])/', $bots) and in_array($chat_id, $bott)){ 
+    if (strpos($sudo, '"status":"member"') == TRUE or $id != $s_id) {
+bot('kickChatMember',[ 
+'chat_id'=>$chat_id, 
+'user_id'=>$id
+]);
+}
+}
+
+// اوامر المنع //
+if ($text == '/block' and strpos($sudo, '"status":"member"') == FALSE or $id == $s_id) {
+    bot('sendmessage',[
+        'chat_id'=>$chat_id,
+        'reply_to_message_id'=>$mid,
+        'text'=>'⚠️ اوامر المنع📌
+
+🚸منع+الكلمة〰الغاء المنع+الكلمة
+🚸قائمة المنع 〰لعرض قائمة المنع 
+🚸مسح قائمة المنع 〰 لمسح قائمة المنع'
+
+]);
+}
+
+
+
+if(preg_match('/^(منع) (.*)/s', $text, $filter)  ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+if(in_array($filter[2], explode("\n", file_get_contents("filter.txt")))){
+
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>"⚠️الكلمة $filter[2]  في  قائمة 📌 المنع  بالفعل🚫",
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+}
+if(preg_match('/^(منع) (.*)/s', $text, $filter)  ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+if(!in_array($filter[2], explode("\n", file_get_contents("filter.txt")))){
+
+file_put_contents("filter.txt", "$filter[2]\n", FILE_APPEND);
+
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>"تم☑️ منـع 🚫 كلمـة $filter[2]",
+'reply_to_message_id'=>$mid
+]);
+}
+}
+}
+if(preg_match('/^(الغاء منع) (.*)/s', $text, $filter)  ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+if(!in_array($filter[2], explode("\n", file_get_contents("filter.txt")))){
+
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>"⚠️ الكلمة $filter[2] ليست في  قائمة📌 المنع  🚫",
+'reply_to_message_id'=>$mid
+]);
+}
+}
+}
+if(preg_match('/^(الغاء منع) (.*)/s', $text, $filter)  ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+
+if(in_array($filter[2], explode("\n", file_get_contents("filter.txt")))){
+$send = file_get_contents("filter.txt");
+$send = str_replace($filter[2], " ", $send);
+$send = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $send);
+file_put_contents("filter.txt", $send);
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>"تم☑️ الغاء منـع 🚫 كلمـة $filter[2]",
+'reply_to_message_id'=>$mid
+]);
+}
+}
+}
+if($text == "قائمة المنع" and file_exists("filter.txt") ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+$filter = file_get_contents("filter.txt");
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>"
+قـائـمـة 📃 الـكـلـمـات 📈 الـمـمـنـوعـة 🚯 
+داخـل الـمـجـمـوعـه 👥 ⏬
+|---------------------------------------------------------|
+$filter 
+|---------------------------------------------------------|",
+'reply_to_message_id'=>$mid
+]);
+}
+}
+if ($text == "قائمة المنع" and !file_exists("filter.txt") ) {
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+    bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>'⚠️لا يوجد قائمة منع📌',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+if($text == "مسح قائمة المنع" and !file_exists("filter.txt")  ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>'⚠️ لا يوجد شيء في قائمة المنع 📌',
+'reply_to_message_id'=>$mid
+]);
+}
+}
+if($text == "مسح قائمة المنع" and file_exists("filter.txt")  ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+unlink("filter.txt");
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>'⚠️تم مسح قائمة المنع📌',
+'reply_to_message_id'=>$mid
+]);
+}
+}
+$lloll = explode("\n", file_get_contents("filter.txt"));
+if(in_array($text, $lloll) and strpos($sudo, '"status":"member"') == TRUE and $id != $s_id){
+
+bot('deleteMessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+
+]);
+}
+
+// اوامر الكتم // 
+if ($text == '/mute' and strpos($sudo, '"status":"member"') == FALSE or $id == $s_id) {
+    bot('sendmessage',[
+        'chat_id'=>$chat_id,
+        'reply_to_message_id'=>$mid,
+        'text'=>'⚠️ اوامر الكتم🚫
+
+🚸كتم + رد 〰 الغاء الكتم + رد
+🚸كتم + ايدي 〰 الغاء كتم + ايدي
+🚸قائمة المكتومين
+🚸مسح قائمة المكتومين'
+
+]);
+}
+
+if ($reply and $text == 'كتم' and !in_array($reply_id, explode("\n", file_get_contents("ktm.txt")))) {
+    if( strpos($sudo, '"status":"member"') == FALSE or $id == $s_id){
+    
+    file_put_contents('ktm.txt',"\n" .  $reply_id, FILE_APPEND);
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'parse_mode'=>'markdown',
+'text'=>"تم كتم العضو 🚫👤  *$reply_id* ",
+'message_id'=>$mid
+
+    ]);
+}
+}
+if ($reply and $text == 'الغاء الكتم' and in_array($reply_id, explode("\n", file_get_contents("ktm.txt")))) {
+     if (strpos($sudo, '"status":"member"') == FALSE or $id == $s_id){
+
+$open = file_get_contents("ktm.txt");
+$str = str_replace($reply_id,'',$open);
+file_put_contents("ktm.txt", $str);
+
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'parse_mode'=>'markdown',
+'text'=>"تم الغاء كتم العضو 🚫👤  *$reply_id* ",
+'message_id'=>$mid
+
+    ]);
+}
+}
+if($text and in_array($id, explode("\n", file_get_contents("ktm.txt")))) {
+    if (strpos($sudo, '"status":"member"') !== false and $id != $s_id ) {
+        
+  bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+}
+
+if(preg_match('/^(كتم) (.*)/s',$text, $idk)  ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+if(!in_array($idk[2], explode("\n", file_get_contents("ktm.txt")))){
+file_put_contents("ktm.txt", "$idk[2]" . "\n" , FILE_APPEND);
+
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'parse_mode'=>'markdown',
+'text'=>"_تم☑️ كتم🚫 العضو_ *$idk[2]*",
+'reply_to_message_id'=>$mid
+]);
+}
+}
+}
+
+
+if(preg_match('/^(الغاء الكتم) (.*)/s', $text, $idk)  ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+if(in_array($idk[2], explode("\n", file_get_contents("ktm.txt")))){
+$send = file_get_contents("ktm.txt");
+$send = str_replace($idk[2], " ", $send);
+$send = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $send);
+file_put_contents("ktm.txt", $send);
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'parse_mode'=>'markdown',
+'text'=>"_تم☑️ الغاء كتم🚫 العضو_ *$idk[2]*",
+'reply_to_message_id'=>$mid
+]);
+}
+}
+}
+
+
+$mnaa = explode("\n", file_get_contents("ktm.txt"));
+
+if( $idk[2] and in_array($idk[2], $mnaa)  and strpos($sudo, '"status":"member"') == TRUE and $id != $s_id){
+bot('deleteMessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$mid,
+]);
+}
+
+
+
+if($text == "قائمة المكتومين" and file_exists("ktm.txt") ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+$get_ktm = file_get_contents("ktm.txt");
+$idcount = explode("\n", $get_ktm);
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'parse_mode'=>'markdown',
+'text'=>"
+_قـائـمـة 📃 الـمكتومين 📈🚯 
+داخـل الـمـجـمـوعـه 👥 ⏬_
+|-------------|
+*$get_ktm*
+
+|-------------|",
+'reply_to_message_id'=>$mid
+]);
+}
+}
+if ($text == "قائمة المكتومين" and !file_exists("ktm.txt") ) {
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+    bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>'⚠️لا يوجد قائمة كتم📌',
+'reply_to_message_id'=>$mid
+
+]);
+}
+}
+
+
+if($text == "مسح قائمة المكتومين" and !file_exists("ktm.txt")  ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>'⚠️ لا يوجد شيء في قائمة المكتومين 📌',
+'reply_to_message_id'=>$mid
+]);
+}
+}
+if($text == "مسح قائمة المكتومين" and file_exists("ktm.txt")  ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+unlink("ktm.txt");
+bot('sendmessage',[
+
+'chat_id'=>$chat_id,
+'text'=>'⚠️تم مسح قائمة الكتم📌',
+'reply_to_message_id'=>$mid
+]);
+}
+}
+
+// اوامر الحظر //
+if ($text == '/kick' and strpos($sudo, '"status":"member"') == FALSE or $id == $s_id) {
+    bot('sendMessage',[
+'chat_id'=>$chat_id,
+'reply_to_message_id'=>$mid,
+'text'=>'⚠️ اوامر الطرد⛔️
+
+🚸طرد+ رد 〰 طرد+ايدي'
+
+]);
+}
+
+if($reply and $text == 'طرد' ){
+    if ( strpos($sudo, '"status":"member"') == FALSE or  $id == $s_id) {
+
+    bot('kickchatmember',[
+   'chat_id'=>$chat_id,
+   'user_id'=>$message->reply_to_message->from->id,
+]);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'تم طرد @' . $message->reply_to_message->from->username,
+]);
+}
+}
+if($reply and $text == 'طرد' and strpos($sudo, '"status":"member"') == TRUE or $id != $s_id){
+   
+   bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'➖ انت لست ضمن الادمنيه ❕❗️'
+]);
+}
+
+if ($text == 'طرد' ) {
+    if (strpos($sudo, '"status":"member"') == FALSE or $id == $s_id) {
+        
+bot('kickchatmember',[
+'chat_id'=>$chat_id,
+'user_id'=>$text[1],
+
+]);
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'parse_mode'=>'markdown',
+'text'=>"_تم طرد_ *$text[1]*"
+
+]);
+}
+}
+
+// الحذف + الرتبة + مغادرة البوت //
+
+if ($del[0] == 'حذف' and isset($del[1]) and $del[1] < 100) {
+    if(strpos($sudo, '"status":"member"') == FALSE or $id == $s_id){
+ 
+    for ($i=$mid - $del[1]; $i < $mid; $i++) { 
+        bot('deletemessage',[
+'chat_id'=>$chat_id,
+'message_id'=>$i
+    ]);
+    }
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=>'تم حذف❌' . $del[1] . 'من الرسائل ✉️'
+    ]);
+}
+}
+if ($del[0] == 'حذف' and isset($del[1]) and $del[1] > 100){
+if(strpos($sudo, '"status":"member"') == FALSE or $id == $s_id){
+
+bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=> 'ممنوع حذف رسائل اكثر من 100 ❗️✉️'
+]);
+}
+}
+
+
+if ($text == 'مغادرة البوت') {
+  
+  if (strpos($sudo, '"status":"member"') == FALSE or $id == $s_id ) {
+    
+bot('sendMessage',[
+
+'chat_id'=>$chat_id,
+'parse_mode'=>'markdown',
+'text'=>'_تشرفـت 😊 بيكم بـاي👋🏼🚶🏻_'
+]);
+
+bot('leaveChat',[
+
+'chat_id'=>$chat_id,
+
+]);
+}
+}
+
+
+
+if ($text == 'الرتبه' and strpos($sudo, '"status":"member"') == TRUE and $id != $s_id) {
+    
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=> 'رتبتك هيه عضـو 🛐😹',
+'reply_to_message_id'=>$mid
+    ]);
+}
+
+
+if ($text == 'الرتبه' and strpos($sudo, '"status":"administrator"') == TRUE) {
+    
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=> 'رتبتك هيه ادمـن 😙☘️',
+'reply_to_message_id'=>$mid
+    ]);
+}
+
+
+if ($text == 'الرتبه' and strpos($sudo, '"status":"creator"') == TRUE) {
+    
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=> 'رتبتك هيه المـدير 😙☘️',
+'reply_to_message_id'=>$mid
+    ]);
+}
+
+
+if ($text == 'الرتبه' and $id == $s_id ){
+    bot('sendmessage',[
+'chat_id'=>$chat_id,
+'text'=> 'المـطور مالتـي ✨😻🙈',
+'reply_to_message_id'=>$mid
+    ]);
+}
+
